@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clima por País</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        select, button { padding: 8px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clima en Tiempo Real 🌍</h1>
+        
+        <!-- Dropdown y Botón -->
+        <form method="POST">
+            <select name="pais">
+                {% for pais in paises %}
+                    <option value="{{ loop.index0 }}" 
+                        {% if loop.index0 == indice_seleccionado %}selected{% endif %}>
+                        {{ pais.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Actualizar</button>
+        </form>
+
+        <!-- Gráfico -->
+        <canvas id="miGrafico"></canvas>
+    </div>
+
+    <script>
+        // Datos desde Flask
+        const horas = {{ horas | safe }};
+        const temperaturas = {{ temperaturas | safe }};
+
+        // Configurar gráfico
+        const ctx = document.getElementById('miGrafico').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: horas.map(hora => hora.split('T')[1]), 
+                datasets: [{
+                    label: 'Temperatura (°C)',
+                    data: temperaturas,
+                    borderColor: '#ff6384',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Temperatura Horaria'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

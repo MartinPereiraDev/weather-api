@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clima en Tiempo Real</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperaturas Horarias 🌡️ Nueva York</h1>
+        <canvas id="miGrafico"></canvas>
+    </div>
+
+    <script>
+        // Datos desde Flask
+        const horas = {{ horas | safe }};
+        const temperaturas = {{ temperaturas | safe }};
+
+        // Crear gráfico
+        const ctx = document.getElementById('miGrafico').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: horas.map(hora => hora.split('T')[1]), // Mostrar solo la hora
+                datasets: [{
+                    label: 'Temperatura (°C)',
+                    data: temperaturas,
+                    borderColor: '#ff6384',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Pronóstico de Temperatura (24 horas)'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
