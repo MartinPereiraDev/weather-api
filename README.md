@@ -23,5 +23,5 @@ Web application that shows meteorological data using the [Open-meteo] API (https
 
 ## Installation 📦
 1. Clona the repository: 
-`` Bash 
+
 GIT CLONE https://github.com/MartinPereiraDev/weather-api.git
