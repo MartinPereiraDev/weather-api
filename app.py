@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-# country list with coordinates (latitude and longitude)
+# cities = a list with coordinates (latitude and longitude)
 CITIES = [
     {"name": "Nueva York", "lat": 40.7128, "lon": -74.0060},
     {"name": "Londres", "lat": 51.5074, "lon": -0.1278},
@@ -43,12 +43,12 @@ def index():
     selected_country = CITIES[13]
     
     if request.method == 'POST':
-        # Get the selected country from the form
+        # Get the selected city index from the form
 
         index = int(request.form['city'])
         selected_country = CITIES[index]
     
-    # Get the weather data for the selected country
+    # Get the weather data for the selected city
     data = get_data_meteo(selected_country["lat"], selected_country["lon"])
     
     if data:
