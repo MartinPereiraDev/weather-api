@@ -19,10 +19,28 @@ CITIES = [
     {"name": "Santiago", "lat": -33.4489, "lon": -70.6693},
     {"name": "Brasilia", "lat": -15.7801, "lon": -47.9292},
     {"name": "Caracas", "lat": 10.4812, "lon": -66.8602},
-    {"name": "Montevideo", "lat": -34.9011, "lon": -56.1645}
+    {"name": "Montevideo", "lat": -34.9011, "lon": -56.1645},
+    {"name": "Paysandu", "lat": -32.3171, "lon": -58.08072}
 ]
 
 def get_data_meteo(lat, lon):
+    """
+    Retrieves weather data from the Open-Meteo API for a specific location.
+    
+    Args:
+        lat (float): Latitude of the target location
+        lon (float): Longitude of the target location
+    
+    Returns:
+        dict or error: Dictionary containing weather data if the request is successful,
+                      error message in case of errors or invalid response.
+    
+    Workflow:
+        1. Sets up API query parameters
+        2. Executes a GET request to the API endpoint
+        3. Validates the HTTP response status
+        4. Returns parsed JSON data or error message if unsuccessful
+    """
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude": lat,
@@ -34,22 +52,24 @@ def get_data_meteo(lat, lon):
     try:
         response = requests.get(url, params=params)
         return response.json() if response.status_code == 200 else None
-    except:
-        return None
+    except Exception as e:
+        # Log the error message 
+
+        return print("Error: ", e)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # Country selected by default
-    selected_country = CITIES[13]
+    selected_city = CITIES[13]
     
     if request.method == 'POST':
         # Get the selected city index from the form
 
         index = int(request.form['city'])
-        selected_country = CITIES[index]
+        selected_city = CITIES[index]
     
     # Get the weather data for the selected city
-    data = get_data_meteo(selected_country["lat"], selected_country["lon"])
+    data = get_data_meteo(selected_city["lat"], selected_city["lon"])
     
     if data:
         # Extract the data from the API response
@@ -79,7 +99,7 @@ def index():
             winds=json.dumps(winds),
             resume=resume,
             cities=CITIES,
-            indice_seleccionado=CITIES.index(selected_country),
+            indice_seleccionado=CITIES.index(selected_city),
         )
     else:
         return "Error obtaining weather data from API."
