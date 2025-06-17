@@ -7,7 +7,7 @@ app = Flask(__name__)
 # cities = a list with coordinates (latitude and longitude)
 CITIES = [
     {"name": "Nueva York", "lat": 40.7128, "lon": -74.0060},
-    {"name": "Londres", "lat": 51.5074, "lon": -0.1278},
+    {"name": "London", "lat": 51.5074, "lon": -0.1278},
     {"name": "Tokio", "lat": 35.6762, "lon": 139.6503},
     {"name": "París", "lat": 48.8566, "lon": 2.3522},
     {"name": "Sídney", "lat": -33.8688, "lon": 151.2093},
@@ -33,7 +33,7 @@ def get_data_meteo(lat, lon):
     
     Returns:
         dict or error: Dictionary containing weather data if the request is successful,
-                      error message in case of errors or invalid response.
+                      error message if the request fails or invalid response.
     
     Workflow:
         1. Sets up API query parameters
