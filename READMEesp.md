@@ -16,8 +16,8 @@ Aplicación web que muestra datos meteorológicos mediante la API [Open-meteo] (
 ## Cómo funciona ⚙️
 1. ** Consultar la API **: Obtener datos meteorológicos mediante coordenadas geográficas. 2. **Procesamiento**: Extraer temperatura, precipitación, humedad y viento.
 3. **Visualización**:
-- Gráfico de líneas de temperatura.
-- Gráfico de barras de precipitación.
+- Gráfico de líneas para la  temperatura.
+- Gráfico de barras para precipitación.
 - Tarjetas con datos resumidos.
 
 ## Instalación 📦
