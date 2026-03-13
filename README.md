@@ -22,6 +22,6 @@ Web application that shows meteorological data using the [Open-meteo] API (https
 - Cards with summary data.
 
 ## Installation 📦
-1. Clona the repository: 
+1. Clon the repository: 
 
 GIT CLONE https://github.com/MartinPereiraDev/weather-api.git
